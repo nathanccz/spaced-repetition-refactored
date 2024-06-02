@@ -1,16 +1,55 @@
-  <div class="row">
-    <div class="col s12">
-      <div class="row">
-        <div class="input-field col s12 tech-input">
-          <i class="material-icons prefix">textsms</i>
-          <input type="text" id="autocomplete-input" class="autocomplete">
-          <label for="autocomplete-input">Add new technology</label>
-        </div>
-        <div class="tech-submit-btn">
-          <button class="btn waves-effect waves-light" type="submit" name="action">Add Tech
-            <i class="material-icons left">add</i>
-          </button>
+  <div class="container">
+    <h3>Add a Technology to Your Stack</h3>
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12 tech-input">
+            <i class="material-icons prefix">textsms</i>
+            <input type="text" id="autocomplete-input" class="autocomplete">
+            <label for="autocomplete-input">Add new technology</label>
+          </div>
+          <div class="tech-submit-btn">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Add Tech
+              <i class="material-icons left">add</i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <h6>Don't see the tech you want? Add your own below.</h6>
+    </div>
+    
+    <div class="row">
+      <form class="col s12 add-tech-form">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Placeholder" id="tech_name" type="text" class="validate">
+            <label for="tech_name">Full Tech Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="tech_acronym" type="text" class="validate">
+            <label for="tech_acronym">Tech Achronym</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="tech_category" type="text" class="validate">
+            <label for="tech_category">Tech Category</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="tech_type" type="text" class="validate">
+            <label for="tech_type">Tech Type</label>
+          </div>
+        </div>
+        
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+        
+      </form>
+    </div>
+          
   </div>

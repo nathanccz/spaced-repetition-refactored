@@ -1,4 +1,4 @@
-// Fetch tech list from db and pass it into init method.
+// Fetch tech list from db and pass it into init method to fill autocomplete box.
 
 document.addEventListener('DOMContentLoaded', async() => {
     let elems = document.querySelectorAll('.autocomplete')
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async() => {
 
     const options = data.reduce((obj,curr) => {
         if (!obj.data) obj.data = {}
-        obj.data[curr.techName] = null //Add = curr.faClass 
+        obj.data[curr.techName] = null //Add = curr.faClass or link to img
         return obj
     }, {})
 

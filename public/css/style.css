@@ -17,12 +17,18 @@ p {
     display: flex;
 }
 
-.tech-input {
+.row .tech-input {
     flex-basis: 70%;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
 }
 
 .tech-submit-btn {
     flex-basis: 20%;
     align-items: center;
     justify-content: center;
+}
+
+.row .add-tech-form {
+    padding: 0;
 }
