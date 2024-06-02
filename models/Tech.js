@@ -1,28 +1,22 @@
 const mongoose = require('mongoose')
 
 const TechSchema = new mongoose.Schema({
-    name: {
+    techName: {
         type: String,
         required: true,
-        trim: true
     },
     category: {
         type: String,
         required: true
     },
-    status: {
+    type: {
         type: String,
-        default: 'public',
-        enum: ['public', 'private']
+        required: true
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    faClass: {
+        type: String,
+        required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-})
+}, { collection: 'tech_list' })
 
 module.exports = mongoose.model('Tech', TechSchema)
