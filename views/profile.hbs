@@ -1,0 +1,21 @@
+<h6>My Profile</h6>
+<h3>Welcome {{name}}</h3>
+{{#if tech}}
+    <p>Here are the technologies you're tracking:</p>
+
+{{#each tech}}
+    <ul class="collection">
+        <li class="collection-item avatar">
+        <img src="images/yuna.jpg" alt="" class="circle">
+            <span class="tech-name">{{name}}</span>
+            <p>Category: <br>
+                Progress: 
+            </p>
+            <a href="#!" class="secondary-content"><a class="waves-effect waves-light btn">Track</a></a>
+        </li>
+    </ul>
+{{/each}}
+
+{{else}}
+    <p>You are not currently tracking any technologies.</p>
+{{/if}}

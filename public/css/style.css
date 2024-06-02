@@ -1,0 +1,28 @@
+p {
+    margin: 10px 0 !important;
+}
+
+.login-container {
+    width: 400px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.fa-small {
+    font-size: 16px !important;
+}
+
+.row, 
+.tech-submit-btn {
+    display: flex;
+}
+
+.tech-input {
+    flex-basis: 70%;
+}
+
+.tech-submit-btn {
+    flex-basis: 20%;
+    align-items: center;
+    justify-content: center;
+}
