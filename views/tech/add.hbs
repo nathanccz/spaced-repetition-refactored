@@ -1,5 +1,7 @@
   <div class="container">
-    <h3>Add a Technology to Your Stack</h3>
+    <div class="row">
+      <h3>Add a Technology to Your Stack</h3>
+    </div>
     <div class="row">
       <div class="col s12">
         <div class="row">
@@ -9,7 +11,7 @@
             <label for="autocomplete-input">Add new technology</label>
           </div>
           <div class="tech-submit-btn">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Add Tech
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="addTechBtn">Add Tech
               <i class="material-icons left">add</i>
             </button>
           </div>
@@ -53,3 +55,27 @@
     </div>
           
   </div>
+  <script>
+    const addTechBtn = document.getElementById('addTechBtn')
+    const autocompleteInput = document.getElementById('autocomplete-input')
+
+    addTechBtn.addEventListener('click', async() => {
+        const techToAdd = document.getElementById('autocomplete-input').value
+        if (!techToAdd) {
+            alert('Please choose a technology or add your own in the form below.')
+            return
+        }
+        const request = await fetch('/tech/addTech', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                'techToAdd': techToAdd
+            })
+        })
+        const data = await request.json()
+        if (data === 'Item added successfully') {
+          autocompleteInput.value = ''
+          M.toast({ html: data, displayLength: 5000 })
+        }
+    })
+  </script>

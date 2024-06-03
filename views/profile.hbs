@@ -1,21 +1,66 @@
-<h6>My Profile</h6>
+<h6>Dashboard</h6>
 <h3>Welcome {{name}}</h3>
 {{#if tech}}
-    <p>Here are the technologies you're tracking:</p>
+    <p>Here are the technologies currently in your stack:</p>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Last Session</th>
+                <th>Rating</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each tech}}
+                <tr>
+                    <td><i class="tech-icon {{faClass}}"></i> <span class="table-item"><a class="tech-title" href="/stories/{{_id}}">{{techName}}</a></span></td>
+                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/tech/edit/{{_id}}" class="btn btn-float">
+                            <i class="fas fa-edit"></i> Track
+                        </a>
+                        {{!-- <button type="submit" class="btn red delete-tech-btn">
+                                <i class="fas fa-trash"></i>
+                            </button> --}}
+                        <form action="/tech/{{_id}}" id="delete-form">
+                            {{!-- <input type="hidden" name="_method" value="DELETE"> --}}
+                            <button type="submit" class="btn red delete-tech-btn" data-id="{{_id}}"> 
+                                <i class="fas fa-trash" data-id="{{_id}}"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script>
+        const deleteTechBtns = document.querySelectorAll('.delete-tech-btn')
+        const deleteForm = document.getElementById('delete-form')
 
-{{#each tech}}
-    <ul class="collection">
-        <li class="collection-item avatar">
-        <img src="images/yuna.jpg" alt="" class="circle">
-            <span class="tech-name">{{name}}</span>
-            <p>Category: <br>
-                Progress: 
-            </p>
-            <a href="#!" class="secondary-content"><a class="waves-effect waves-light btn">Track</a></a>
-        </li>
-    </ul>
-{{/each}}
+        Array.from(deleteTechBtns).forEach(el => el.addEventListener('click', deleteTech))
 
+        async function deleteTech(event) {
+            event.preventDefault()
+            try {
+                const techID = event.target.dataset.id
+                const response = await fetch('/tech/deleteTech', {
+                    method: "DELETE",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({
+                        techToDelete: techID
+                    })
+                })
+                const data = await response.json()
+                if (data === 'Item deleted') {
+                    window.location.reload()
+                } 
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    </script>
 {{else}}
     <p>You are not currently tracking any technologies.</p>
 {{/if}}

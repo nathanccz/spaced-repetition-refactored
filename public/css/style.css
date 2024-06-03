@@ -32,3 +32,43 @@ p {
 .row .add-tech-form {
     padding: 0;
 }
+
+.fa-small {
+    font-size: 16px !important;
+}
+
+.btn-float {
+    float: left;
+    margin-right: 10px;
+}
+
+.img-small {
+    width: 180px;
+}
+
+.tech-icon {
+    color: rgb(99, 179, 34);
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+
+tr {
+    position: relative;
+}
+
+.table-item {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.add-tech-form {
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 2rem !important;
+}
+
+.tech-title {
+    font-weight: 600;
+}

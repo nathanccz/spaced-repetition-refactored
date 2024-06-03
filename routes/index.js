@@ -3,6 +3,7 @@ const router = express.Router()
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 const Tech = require('../models/Tech')
+const User = require('../models/User')
 
 //@desc     Login/Landing page
 //@route    GET /
@@ -19,7 +20,8 @@ router.get('/', ensureGuest, (req, res) => {
 router.get('/profile', ensureAuth, async(req, res) => {
    console.log(req.user.image)
     try {
-        const tech = await Tech.find({  user: req.user.id }).lean()
+        const user = await User.findOne({  _id: req.user.id }).populate('tech').lean()
+        const tech = user.tech
         res.render('profile', {
             name: req.user.firstName,
             tech
