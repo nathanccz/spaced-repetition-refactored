@@ -9,6 +9,15 @@ const User = require('../models/User')
 //@route    GET /
 
 router.get('/', ensureGuest, (req, res) => {
+    res.render('home', {
+        layout: 'home'
+    })
+})
+
+//@desc     Login/Landing page
+//@route    GET /
+
+router.get('/login', ensureGuest, (req, res) => {
     res.render('login', {
         layout: 'login'
     })

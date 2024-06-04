@@ -1,4 +1,5 @@
 <h6>Dashboard</h6>
+{{> _add_btn}}
 <h3>Welcome {{name}}</h3>
 {{#if tech}}
     <p>Here are the technologies currently in your stack:</p>
@@ -14,7 +15,7 @@
         <tbody>
             {{#each tech}}
                 <tr>
-                    <td><i class="tech-icon {{faClass}}"></i> <span class="table-item"><a class="tech-title" href="/stories/{{_id}}">{{techName}}</a></span></td>
+                    <td><i class="tech-icon {{faClass}}"></i> <span class="table-item"><a class="tech-title" href="/tech/{{_id}}">{{techName}}</a></span></td>
                     <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
                     <td><span class="dash-status">{{status}}</span></td>
                     <td>

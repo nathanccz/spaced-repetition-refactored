@@ -4,6 +4,7 @@ const { ensureAuth } = require('../middleware/auth')
 
 const Tech = require('../models/Tech')
 const User = require('../models/User')
+const Topic = require('../models/Topic')
 
 // @desc     Show add page
 // @route    GET /tech/add
@@ -54,6 +55,37 @@ router.delete('/deleteTech', ensureAuth, async (req, res) => {
         console.error(err)
     }
 })
+
+// @desc     Show tech overview page with all topics
+// @route    GET /tech/:id
+
+router.get('/:id', ensureAuth, async (req, res) => {
+    const techID = req.params.id
+    try {
+        const techArr = await Tech.find({ _id: techID }).lean()
+        const techName = techArr[0].techName
+        const topic = await Topic.find({ user: req.user.id, tech: techID }).lean()
+        res.render('tech/overview', { techName, techID, topic })
+    } catch (err) {
+        console.error(err)
+    }
+})
+
+// @desc     Add tech topic
+// @route    POST /tech/:id/addTopic
+
+router.post('/addTopic', ensureAuth, async (req, res) => {
+    const topic = req.body.topicToAdd
+    const techID = req.body.techID
+    const userID = req.user.id
+    try {
+        const result = await Topic.create({ topic: topic, tech: techID, user: userID })
+        res.json('Topic added successfully')
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 
 
 module.exports = router
