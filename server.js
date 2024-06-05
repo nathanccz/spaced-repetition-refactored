@@ -41,17 +41,16 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars Helpers
-const { formatDate, stripTags, truncate, editIcon, select } = require('./helpers/hbs')
+const { formatDate, select, truncateArray, reverseArray } = require('./helpers/hbs')
 
 // Handlebars
 
 app.engine('.hbs', engine({
     helpers: {
         formatDate,
-        stripTags,
-        truncate,
-        editIcon,
         select,
+        truncateArray,
+        reverseArray,
     }, 
     defaultLayout: 'main', 
     extname: '.hbs'

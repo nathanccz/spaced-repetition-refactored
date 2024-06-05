@@ -1,5 +1,5 @@
  <div class="row">
-    <h3>{{techName}} Overview</h3>
+    <h3><i class="tech-icon-header {{techLogo}}"></i> {{techName}} Overview</h3>
 </div>
   
   <div class="row">
@@ -8,11 +8,11 @@
         <div class="input-field col s6 topic-input-field">
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-          <label for="icon_prefix2">Write down topic</label>
+          <label for="icon_prefix2">Add a new topic</label>
         </div>
         <div class="valign-wrapper">
             <button class="btn waves-effect waves-light" type="submit" id="add-topic-btn" data-id="{{techID}}">Add Topic
-                <i class="material-icons right">add</i>
+              <i class="material-icons right">add</i>
             </button>
         </div>
       </div>        
@@ -20,14 +20,91 @@
   </div>
   
   {{#if topic}}
+  
+ <ul class="collapsible popout">
   {{#each topic}}
- <ul class="collapsible">
     <li>
       <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{topic}}</div>
-      <div class="collapsible-body"><span>You have not recorded any sessions for this topic.</span></div>
+      <div class="collapsible-body">
+        <div class="row">
+          <div class="input-field col s12 session-input-field valign-wrapper">
+            <h6>Log a session:</h6>
+            <select class="log-session-field-{{_id}}">
+              <option value="" disabled selected>Choose your rating</option>
+              <option value="1">Very Hard</option>
+              <option value="2">Somewhat Hard</option>
+              <option value="3">Average</option>
+              <option value="4">Somewhat Easy</option>
+              <option value="5">Very Easy</option>
+            </select>
+            <button class="btn waves-effect waves-light log-session-btn" data-id="{{_id}}" data-tech="{{tech}}" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+        {{#if history}}
+        <h6>Latest Sessions</h6>
+        <div class="row history-container">
+        {{#each (truncateArray history) as |item|}}
+        
+          <ul>
+            <li><span>Date:</span> {{item.date}}</li>
+            <li><span>Time:</span> {{item.time}}</li>
+            <li><span>Rating:</span> {{item.rating}}</li>
+          </ul>
+        
+        {{/each}}
+        </div>
+
+        <div class="topic-btm">
+          <button data-target="modal{{_id}}" class="waves-effect waves-light btn-small modal-trigger">View All  <i class="fa-regular fa-eye"></i></button>
+          <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}"> 
+            <i class="fas fa-trash" data-id="{{_id}}"></i>
+          </button>
+        </div>
+
+         <div id="modal{{_id}}" class="modal">
+           
+          <div class="modal-content">
+            <h5>{{../techName}}: {{topic}} | Session History</h5>
+            
+            {{#each (reverseArray history) as |item|}}
+           
+              <ul class="collection session-collection">
+                <li class="collection-item avatar">
+                  <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" class="circle">
+                    <circle r="45" cx="20" cy="20" fill="red" />
+                  </svg>
+                  <span class="title"><strong>{{item.date}}</strong></span>
+                  <p> <strong>Time:</strong> {{item.time}} <br>
+                    <strong>Rating:</strong> {{item.rating}}
+                  </p>
+                </li>
+              </ul>
+            {{/each}}
+            
+          </div>
+          
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+          </div>
+        </div>
+      
+         {{else}}
+         <div class="topic-btm">
+          <span>You have not recorded any sessions for this topic.</span>
+          <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}"> 
+              <i class="fas fa-trash" data-id="{{_id}}"></i>
+            </button>
+          </div>
+         {{/if}}
+      </div>
+      
     </li>
+    
+    {{/each}}
   </ul>
-  {{/each}}
+  
   {{else}}
     <p>You have not added any topics for this technology.</p>
   {{/if}}
@@ -38,6 +115,16 @@
       const options = { accordion: true }
       let instances = M.Collapsible.init(elems, options);
     })
+
+     document.addEventListener('DOMContentLoaded', function() {
+      let elems = document.querySelectorAll('select');
+      let instances = M.FormSelect.init(elems);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      let elems = document.querySelectorAll('.modal');
+      let instances = M.Modal.init(elems);
+    });
 
     const addTopicBtn = document.getElementById('add-topic-btn')
     addTopicBtn.addEventListener('click', async(event) => {
@@ -61,4 +148,36 @@
         location.reload()
       }
     })
+
+    const logSessionBtns = document.querySelectorAll('.log-session-btn')
+    Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(event) => {
+      const topicID = event.target.dataset.id
+      const techID = event.target.dataset.tech
+      const selectElement = document.querySelector(`.log-session-field-${topicID}`)
+      const rating = selectElement.options[selectElement.selectedIndex].innerText
+      console.log(topicID, techID, rating)
+      
+      if (rating.includes('Choose')) {
+        alert('Please choose an option from the list.')
+        return
+      }
+      
+      try {
+        const request = await fetch('/tech/addSession', {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify({
+              topicID: topicID,
+              techID: techID,
+              rating: rating
+            })
+        })
+        const data = await request.json()
+        if (data === 'Session saved') {
+          location.reload()
+        }
+      } catch(err) {
+        console.log(err)
+      }
+    }))
   </script>

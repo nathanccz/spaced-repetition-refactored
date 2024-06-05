@@ -1,4 +1,5 @@
 const express = require('express')
+const moment = require('moment')
 const router = express.Router()
 const { ensureAuth } = require('../middleware/auth')
 
@@ -64,15 +65,17 @@ router.get('/:id', ensureAuth, async (req, res) => {
     try {
         const techArr = await Tech.find({ _id: techID }).lean()
         const techName = techArr[0].techName
+        const techLogo = techArr[0].faClass
         const topic = await Topic.find({ user: req.user.id, tech: techID }).lean()
-        res.render('tech/overview', { techName, techID, topic })
+        console.log(topic)
+        res.render('tech/overview', { techName, techID, topic, techLogo })
     } catch (err) {
         console.error(err)
     }
 })
 
 // @desc     Add tech topic
-// @route    POST /tech/:id/addTopic
+// @route    POST /tech/addTopic
 
 router.post('/addTopic', ensureAuth, async (req, res) => {
     const topic = req.body.topicToAdd
@@ -81,6 +84,28 @@ router.post('/addTopic', ensureAuth, async (req, res) => {
     try {
         const result = await Topic.create({ topic: topic, tech: techID, user: userID })
         res.json('Topic added successfully')
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// @desc     Add session history
+// @route    POST /tech/addSession
+
+router.post('/addSession', ensureAuth, async (req, res) => {
+    const topicID = req.body.topicID
+    const techID = req.body.techID
+    const userID = req.user.id
+    const rating = req.body.rating
+    const date = moment().format('MMMM Do, YYYY')
+    const time = moment().format('h:mm A')
+
+    console.log(topicID, techID, userID, rating)
+
+    try {
+        const result = await Topic.updateOne({ _id: topicID, tech: techID, user: userID }, { $push: { history: { date: date, time: time, rating: rating } } })
+        console.log(result)
+        res.json('Session saved')
     } catch (err) {
         console.log(err)
     }

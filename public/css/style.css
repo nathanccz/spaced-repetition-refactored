@@ -47,7 +47,7 @@ p {
 }
 
 .tech-icon {
-    color: rgb(99, 179, 34);
+    color: rgb(34, 157, 179);
     margin-right: 1rem;
     font-size: 2rem;
 }
@@ -93,3 +93,105 @@ tr {
     height: 100%;
 }
 
+.session-input-field {
+    display: flex;
+    gap: 2rem;
+    border: 1px solid rgb(225, 220, 220);
+    border-radius: 10px;
+    justify-content: space-between;
+    padding: 1rem 2.5rem !important;
+    /* justify-content: center; */
+}
+
+.session-input-field h6 {
+    font-weight: 600;
+    opacity: .8;
+    margin: 0 !important;
+}
+
+.collapsible h6,
+.history-container span {
+    font-weight: 600;
+}
+
+.collapsible h6 {
+    margin-bottom: 1.5rem;
+}
+
+.modal-all-container,
+.history-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-all-container ul,
+.history-container ul {
+    border: 1px solid rgb(225, 220, 220);
+    border-radius: 3px;
+    padding: 1.5rem;
+    width: 220px;
+}
+
+.modal-all-container {
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-all-container ul {
+    width: 50%;
+}
+
+.modal-content h5 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.collapsible .collapsible-header {
+    transition: background 0.5s;
+}
+
+.collapsible .collapsible-header:hover {
+    background: rgb(227, 224, 224);
+}
+
+.session-collection {
+    width: 60%;
+}
+
+.collection-item span,
+.collection-item p {
+    margin-left: 2.5rem !important;
+}
+
+.collection-item svg {
+    opacity: .7;
+}
+
+.collapsible .collection {
+    margin: 0 auto !important;
+}
+
+.collection.session-collection {
+    margin-top: .5rem !important;
+    border: 1px solid rgb(167, 165, 165, .8) !important;
+}
+
+.topic-btm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    border-radius: 3px;
+}
+
+.tech-icon-header {
+    color: rgb(132, 129, 129)
+}

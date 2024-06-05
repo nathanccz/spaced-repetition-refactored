@@ -4,6 +4,7 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 const Tech = require('../models/Tech')
 const User = require('../models/User')
+const Topic = require('../models/Topic')
 
 //@desc     Login/Landing page
 //@route    GET /
@@ -31,6 +32,8 @@ router.get('/profile', ensureAuth, async(req, res) => {
     try {
         const user = await User.findOne({  _id: req.user.id }).populate('tech').lean()
         const tech = user.tech
+        // const topics = await Topic.find({ user: req.user.id }).populate('tech').lean()
+        // console.log(topics)
         res.render('profile', {
             name: req.user.firstName,
             tech
