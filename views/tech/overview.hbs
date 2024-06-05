@@ -23,7 +23,7 @@
   
  <ul class="collapsible popout">
   {{#each topic}}
-    <li>
+    <li data-active-id="{{_id}}">
       <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{topic}}</div>
       <div class="collapsible-body">
         <div class="row">
@@ -57,7 +57,7 @@
         </div>
 
         <div class="topic-btm">
-          <button data-target="modal{{_id}}" class="waves-effect waves-light btn-small modal-trigger">View All  <i class="fa-regular fa-eye"></i></button>
+          <button data-target="modal{{_id}}" class="btn waves-effect waves-light btn-small modal-trigger">View All  <i class="fa-regular fa-eye"></i></button>
           <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}"> 
             <i class="fas fa-trash" data-id="{{_id}}"></i>
           </button>
@@ -110,6 +110,13 @@
   {{/if}}
 
   <script>
+
+    const activeTopicID = localStorage.getItem('active')
+      if(activeTopicID) {
+        const activeElement = document.querySelector(`[data-active-id="${activeTopicID}"]`)
+        if (activeElement) activeElement.classList.add('active')
+      } 
+
     document.addEventListener('DOMContentLoaded', function() {
       let elems = document.querySelectorAll('.collapsible');
       const options = { accordion: true }
@@ -174,6 +181,7 @@
         })
         const data = await request.json()
         if (data === 'Session saved') {
+          localStorage.setItem('active', topicID)
           location.reload()
         }
       } catch(err) {
