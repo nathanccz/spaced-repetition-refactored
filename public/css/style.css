@@ -195,3 +195,12 @@ tr {
 .tech-icon-header {
     color: rgb(132, 129, 129)
 }
+
+.fa-chevron-down {
+    -webkit-transition: transform 0.4s;
+    transition: transform 0.4s;
+  }
+  
+.fa-chevron-down.rotate-180 {
+  transform: rotate(180deg);
+}

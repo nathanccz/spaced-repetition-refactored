@@ -1,12 +1,18 @@
 const activeTopicID = localStorage.getItem('active')
-      if(activeTopicID) {
-        const activeElement = document.querySelector(`[data-active-id="${activeTopicID}"]`)
-        if (activeElement) activeElement.classList.add('active')
-      } 
+  if (activeTopicID) {
+    const activeElement = document.querySelector(`[data-active-id="${activeTopicID}"]`)
+    if (activeElement) {
+      activeElement.classList.add('active')
+      activeElement.childNodes[1].childNodes[0].classList.toggle('rotate-180')
+    }
+  } 
 
 document.addEventListener('DOMContentLoaded', function() {
   let elems = document.querySelectorAll('.collapsible');
-  const options = { accordion: true }
+  const toggleChevron = function(event) {
+    event.childNodes[1].childNodes[0].classList.toggle('rotate-180')
+  }
+  const options = { accordion: true, onOpenStart: toggleChevron, onCloseStart: toggleChevron }
   let instances = M.Collapsible.init(elems, options);
 })
 
@@ -75,3 +81,10 @@ Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(ev
     console.log(err)
   }
 }))
+
+// const collapsibleHeaders = document.querySelectorAll('.collapsible-header')
+// Array.from(collapsibleHeaders).forEach(el => el.addEventListener('click', (event) => {
+
+//   console.log(el)
+  
+// }))
