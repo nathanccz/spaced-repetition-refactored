@@ -35,7 +35,10 @@ router.post('/addTech', ensureAuth, async (req, res) => {
     try {
         const techArr = await Tech.find({ techName: newTech }).lean()
         const techID = techArr[0]._id
-        const result = await User.updateOne({ _id: req.user.id }, { $push: { tech: techID } })
+        const result = await User.updateOne(
+            { _id: req.user.id }, 
+            { $push: { tech: techID } }
+        )
         console.log(result)
         res.json('Item added successfully')
     } catch (err) {
@@ -50,7 +53,10 @@ router.delete('/deleteTech', ensureAuth, async (req, res) => {
     const techID = req.body.techToDelete
     console.log(techID)
     try {
-        const result = await User.updateOne({ _id: req.user.id }, { $pull: { tech: techID } })
+        const result = await User.updateOne(
+            { _id: req.user.id }, 
+            { $pull: { tech: techID } }
+        )
         res.json('Item deleted')
     } catch (err) {
         console.error(err)
@@ -82,7 +88,9 @@ router.post('/addTopic', ensureAuth, async (req, res) => {
     const techID = req.body.techID
     const userID = req.user.id
     try {
-        const result = await Topic.create({ topic: topic, tech: techID, user: userID })
+        const result = await Topic.create(
+            { topic: topic, tech: techID, user: userID }
+        )
         res.json('Topic added successfully')
     } catch (err) {
         console.log(err)
@@ -103,7 +111,10 @@ router.post('/addSession', ensureAuth, async (req, res) => {
     console.log(topicID, techID, userID, rating)
 
     try {
-        const result = await Topic.updateOne({ _id: topicID, tech: techID, user: userID }, { $push: { history: { date: date, time: time, rating: rating } } })
+        const result = await Topic.updateOne(
+            { _id: topicID, tech: techID, user: userID }, 
+            { $push: { history: { date: date, time: time, rating: rating } } }
+        )
         console.log(result)
         res.json('Session saved')
     } catch (err) {
