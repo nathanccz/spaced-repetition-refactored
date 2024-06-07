@@ -28,7 +28,7 @@ router.get('/login', ensureGuest, (req, res) => {
 //@route    GET /dashboard
 
 router.get('/profile', ensureAuth, async(req, res) => {
-   console.log(req.user.image)
+   console.log(req.user)
     try {
         const user = await User.findOne({  _id: req.user.id }).populate('tech').lean()
         const tech = user.tech

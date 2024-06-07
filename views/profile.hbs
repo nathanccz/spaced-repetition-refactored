@@ -1,41 +1,30 @@
-<h6>Dashboard</h6>
 {{> _add_btn}}
 <h3>Welcome {{name}}</h3>
 {{#if tech}}
     <p>Here are the technologies currently in your stack:</p>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Last Session</th>
-                <th>Rating</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+    
+        <ul class="collection">
             {{#each tech}}
-                <tr>
-                    <td><i class="tech-icon {{faClass}}"></i> <span class="table-item"><a class="tech-title" href="/tech/{{_id}}">{{techName}}</a></span></td>
-                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-                    <td><span class="dash-status">{{status}}</span></td>
-                    <td>
-                        <a href="/tech/edit/{{_id}}" class="btn btn-float">
-                            <i class="fas fa-edit"></i> Track
-                        </a>
-                        {{!-- <button type="submit" class="btn red delete-tech-btn">
-                                <i class="fas fa-trash"></i>
-                            </button> --}}
-                        <form action="/tech/{{_id}}" id="delete-form">
-                            {{!-- <input type="hidden" name="_method" value="DELETE"> --}}
-                            <button type="submit" class="btn red delete-tech-btn" data-id="{{_id}}"> 
-                                <i class="fas fa-trash" data-id="{{_id}}"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+               
+                <li class="collection-item avatar">
+                <img src="images/{{techName}}.png" alt="" class="circle">
+                <a href="/tech/{{_id}}"><span class="title">{{techName}}</span></a>
+                <p>Category: {{category}} <br>
+                    Type: {{type}}
+                </p>
+                <div class="collection-btns secondary-content">
+                    <a href="/tech/{{_id}}" class="btn btn-float">
+                                <i class="fas fa-eye"></i> Track
+                    </a>
+                    <form action="/tech/{{_id}}" id="delete-form">
+                        <button type="submit" class="btn red delete-tech-btn" data-id="{{_id}}"> 
+                            <i class="fas fa-trash" data-id="{{_id}}"></i>
+                        </button>
+                    </form>
+                </div>
+                </li>
             {{/each}}
-        </tbody>
-    </table>
+        </ul>
     <script src="js/profile.js"></script>
 {{else}}
     <p>You are not currently tracking any technologies.</p>

@@ -9,7 +9,7 @@ const activeTopicID = localStorage.getItem('active')
 
 document.addEventListener('DOMContentLoaded', function() {
   let elems = document.querySelectorAll('.collapsible');
-  const toggleChevron = function(event) {
+  const toggleChevron = (event) => {
     event.childNodes[1].childNodes[0].classList.toggle('rotate-180')
   }
   const options = { accordion: true, onOpenStart: toggleChevron, onCloseStart: toggleChevron }
@@ -55,7 +55,7 @@ Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(ev
   const techID = event.target.dataset.tech
   const selectElement = document.querySelector(`.log-session-field-${topicID}`)
   const rating = selectElement.options[selectElement.selectedIndex].innerText
-  console.log(topicID, techID, rating)
+  latestRating = rating
   
   if (rating.includes('Choose')) {
     alert('Please choose an option from the list.')
@@ -80,11 +80,28 @@ Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(ev
   } catch(err) {
     console.log(err)
   }
+  
 }))
 
-// const collapsibleHeaders = document.querySelectorAll('.collapsible-header')
-// Array.from(collapsibleHeaders).forEach(el => el.addEventListener('click', (event) => {
+const confirmationBtns = document.querySelectorAll('.confirmation-btn')
+Array.from(confirmationBtns).forEach(btn => btn.addEventListener('click', async() => {
+  const topicToDelete = btn.dataset.topic
 
-//   console.log(el)
-  
-// }))
+  try {
+    const response = await fetch('/tech/deleteTopic', {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        topicID: topicToDelete
+      })
+    })
+    const data = await response.json()
+    if (data === 'Topic deleted') {
+      location.reload()
+    }
+    
+  } catch (err) {
+    console.log(err)
+  }
+
+}))

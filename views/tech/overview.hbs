@@ -1,12 +1,12 @@
  <div class="row">
-    <h3><i class="tech-icon-header {{techLogo}}"></i> {{techName}} Overview</h3>
+    <h3><img src="../images/{{techName}}.png" alt="" height="40" width="40"> {{techName}} Overview</h3>
 </div>
   
   <div class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6 topic-input-field">
-          <i class="material-icons prefix">mode_edit</i>
+          <i class="material-icons prefix">keyboard</i>
           <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
           <label for="icon_prefix2">Add a new topic</label>
         </div>
@@ -20,7 +20,7 @@
   </div>
   
   {{#if topic}}
-  
+<div class="row">
  <ul class="collapsible popout">
   {{#each topic}}
     <li data-active-id="{{_id}}">
@@ -48,9 +48,8 @@
         {{#each (truncateArray history) as |item|}}
         
           <ul>
-            <li><span>Date:</span> {{item.date}}</li>
-            <li><span>Time:</span> {{item.time}}</li>
-            <li><span>Rating:</span> {{item.rating}}</li>
+            <li><span>Date:</span> {{item.date}} at {{item.time}}</li>
+            <li><span>Rating:</span> {{item.rating}} <i class="fa-solid fa-circle" data-rating="{{item.rating}}"></i></li>
           </ul>
         
         {{/each}}
@@ -58,12 +57,12 @@
 
         <div class="topic-btm">
           <button data-target="modal{{_id}}" class="btn waves-effect waves-light btn-small modal-trigger">View All  <i class="fa-regular fa-eye"></i></button>
-          <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}"> 
+          <button type="submit" class="btn red delete-topic-btn modal-trigger" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
             <i class="fas fa-trash" data-id="{{_id}}"></i>
           </button>
         </div>
 
-         <div id="modal{{_id}}" class="modal">
+         <div id="modal{{_id}}" class="modal session-history-modal">
            
           <div class="modal-content">
             <h5>{{../techName}}: {{topic}} | Session History</h5>
@@ -73,7 +72,7 @@
               <ul class="collection session-collection">
                 <li class="collection-item avatar">
                   <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" class="circle">
-                    <circle r="45" cx="20" cy="20" fill="red" />
+                    <circle r="45" cx="20" cy="20" fill="red" data-rating="{{item.rating}}"/>
                   </svg>
                   <span class="title"><strong>{{item.date}}</strong></span>
                   <p> <strong>Time:</strong> {{item.time}} <br>
@@ -89,11 +88,22 @@
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
           </div>
         </div>
+
+        <div id="confirmation-modal-{{_id}}" class="modal">
+          <div class="modal-content">
+            <h4>Are You Sure?</h4>
+            <p>If you delete this topic, you'll lose the history logs associated with it.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">No, Cancel</a>
+            <button class="waves-effect waves-green btn-flat confirmation-btn" data-topic="{{topic}}">Yes, Delete</a>
+          </div>
+        </div>
       
          {{else}}
          <div class="topic-btm">
           <span>You have not recorded any sessions for this topic.</span>
-          <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}"> 
+          <button type="submit" class="btn red delete-topic-btn" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
               <i class="fas fa-trash" data-id="{{_id}}"></i>
             </button>
           </div>
@@ -104,7 +114,7 @@
     
     {{/each}}
   </ul>
-  
+ </div> 
   {{else}}
     <p>You have not added any topics for this technology.</p>
   {{/if}}

@@ -122,6 +122,22 @@ router.post('/addSession', ensureAuth, async (req, res) => {
     }
 })
 
+// @desc     Delete topic 
+// @route    DELETE /tech/deleteTopic
+
+router.delete('/deleteTopic', ensureAuth, async (req, res) => {
+    const topicName = req.body.topicID
+    console.log(topicName)
+    try {
+        const result = await Topic.findOneAndDelete(
+            { user: req.user.id, topic: topicName }, 
+        )
+        res.json('Topic deleted')
+    } catch (err) {
+        console.error(err)
+    }
+})
+
 
 
 module.exports = router

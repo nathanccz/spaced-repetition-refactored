@@ -80,11 +80,14 @@ tr {
 }
 
 .collapsible {
-    width: 70%;
+    width: 80%;
 }
 
 .collapsible-header {
     font-weight: bold;
+    display: flex;
+    justify-content:flex-start;
+    gap: 1rem;
 }
 
 .parallax-container .parallax img {
@@ -112,7 +115,22 @@ tr {
 .collapsible h6,
 .history-container span {
     font-weight: 600;
+    text-align: center;
 }
+
+.history-container ul {
+    width: 80% !important;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    background: rgb(245, 245, 245, .6);
+}
+
+.history-container li:first-child {
+    flex-basis: 50%;
+} 
 
 .collapsible h6 {
     margin-bottom: 1.5rem;
@@ -122,7 +140,8 @@ tr {
 .history-container {
     display: flex;
     justify-content: flex-start;
-    gap: 2rem;
+    flex-direction: column;
+    gap: .5rem;
     margin-bottom: 2rem;
 }
 
@@ -134,8 +153,8 @@ tr {
 .history-container ul {
     border: 1px solid rgb(225, 220, 220);
     border-radius: 3px;
-    padding: 1.5rem;
-    width: 220px;
+    padding: 1rem;
+    width: 250px;
 }
 
 .modal-all-container {
@@ -163,6 +182,10 @@ tr {
 
 .session-collection {
     width: 60%;
+}
+
+.collection .collection-item {
+    padding-top: 20px;
 }
 
 .collection-item span,
@@ -203,4 +226,84 @@ tr {
   
 .fa-chevron-down.rotate-180 {
   transform: rotate(180deg);
+}
+
+*[data-rating="Very Hard"] {
+    color: red;
+}
+
+*[data-rating="Somewhat Hard"] {
+    color: orange;
+}
+
+*[data-rating="Average"] {
+    color: yellow;
+}
+
+*[data-rating="Somewhat Easy"] {
+    color: lightgreen;
+}
+
+*[data-rating="Very Easy"] {
+    color: green;
+}
+
+*[data-rating="No Rating"] {
+    color: gray;
+}
+
+circle[data-rating="Average"] {
+    fill: yellow;
+}
+
+circle[data-rating="Somewhat Easy"] {
+    fill: lightgreen;
+}
+
+circle[data-rating="Very Easy"] {
+    fill: green;
+}
+
+circle[data-rating="Very Hard"] {
+    fill: red;
+}
+
+circle[data-rating="Somewhat Hard"] {
+    fill: orange;
+}
+
+circle[data-rating="Average"] {
+    fill: yellow;
+}
+
+circle[data-rating="Somewhat Easy"] {
+    fill: lightgreen;
+}
+
+circle[data-rating="Very Easy"] {
+    fill: green;
+}
+
+circle[data-rating="No Rating"] {
+    color: gray;
+}
+
+img.circle {
+    border-radius: 0 !important;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.collection-btns {
+    display: flex;
+}
+
+.collection {
+    margin-top: 2rem;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
 }

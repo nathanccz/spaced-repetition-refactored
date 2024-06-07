@@ -23,4 +23,7 @@ module.exports = {
     reverseArray: function(arr) {
         return arr.slice().reverse()
     },
+    getLastElement: function(arr) {
+        return arr.slice(-1)
+    },
 }

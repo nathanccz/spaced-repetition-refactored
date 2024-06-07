@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars Helpers
-const { formatDate, select, truncateArray, reverseArray } = require('./helpers/hbs')
+const { formatDate, select, truncateArray, reverseArray, getLastElement } = require('./helpers/hbs')
 
 // Handlebars
 
@@ -51,6 +51,7 @@ app.engine('.hbs', engine({
         select,
         truncateArray,
         reverseArray,
+        getLastElement,
     }, 
     defaultLayout: 'main', 
     extname: '.hbs'
