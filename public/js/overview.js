@@ -5,7 +5,7 @@ const activeTopicID = localStorage.getItem('active')
       activeElement.classList.add('active')
       activeElement.childNodes[1].childNodes[0].classList.toggle('rotate-180')
     }
-  } 
+} 
 
 document.addEventListener('DOMContentLoaded', function() {
   let elems = document.querySelectorAll('.collapsible');
@@ -55,7 +55,6 @@ Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(ev
   const techID = event.target.dataset.tech
   const selectElement = document.querySelector(`.log-session-field-${topicID}`)
   const rating = selectElement.options[selectElement.selectedIndex].innerText
-  latestRating = rating
   
   if (rating.includes('Choose')) {
     alert('Please choose an option from the list.')

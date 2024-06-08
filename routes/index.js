@@ -30,10 +30,8 @@ router.get('/login', ensureGuest, (req, res) => {
 router.get('/profile', ensureAuth, async(req, res) => {
    console.log(req.user)
     try {
-        const user = await User.findOne({  _id: req.user.id }).populate('tech').lean()
+        const user = await User.findOne({ _id: req.user.id }).populate('tech').lean()
         const tech = user.tech
-        // const topics = await Topic.find({ user: req.user.id }).populate('tech').lean()
-        // console.log(topics)
         res.render('profile', {
             name: req.user.firstName,
             tech

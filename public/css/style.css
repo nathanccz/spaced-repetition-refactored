@@ -302,8 +302,20 @@ img.circle {
 
 .collection {
     margin-top: 2rem;
+    max-width: 800px;
+    max-height: 65vh;
+    overflow: auto;
+    z-index: 3;
 }
 
 h1, h2, h3, h4, h5 {
     font-weight: 700;
+}
+
+body {
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    /* background-image: url("../images/bg.jpg"); */
+    background-size: 100%;
 }

@@ -17,6 +17,23 @@ addTechBtn.addEventListener('click', async() => {
     const data = await request.json()
     if (data === 'Item added successfully') {
       autocompleteInput.value = ''
-      M.toast({ html: data, displayLength: 5000 })
+      M.toast({ html: data, displayLength: 4000 })
+    } else if (data === 'Tech already exists') {
+        alert(`You've already added this tech. Please choose another.`)
     }
+})
+
+// Fetch tech list from db and pass it into init method to fill autocomplete box.
+document.addEventListener('DOMContentLoaded', async() => {
+    let elems = document.querySelectorAll('.autocomplete')
+    const response = await fetch('/tech/techlist')
+    const data = await response.json()
+
+    const options = data.reduce((obj,curr) => {
+        if (!obj.data) obj.data = {}
+        obj.data[curr.techName] = `../images/${curr.techName}.png`
+        return obj
+    }, {})
+    
+    let instances = M.Autocomplete.init(elems, options);
 })
