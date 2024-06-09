@@ -15,7 +15,7 @@ const TechSchema = new mongoose.Schema({
     },
     faClass: {
         type: String,
-        required: true
+        required: false
     },
 }, { collection: 'tech_list' })
 

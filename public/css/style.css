@@ -319,3 +319,54 @@ body {
     /* background-image: url("../images/bg.jpg"); */
     background-size: 100%;
 }
+
+/* MOBILE */
+
+@media screen and (max-width: 431px) {
+    .collection-btns .btn-float {
+        display: none;
+    }
+
+    .collapsible {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .col.s12 > .row,
+    .history-container ul,
+    .input-field {
+        flex-direction: column;
+    }
+
+    .nav-wrapper .brand-logo{
+        font-size: 16px;
+    }
+
+    .col.s12 > .row {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col.s12 > .row .input-field {
+        width: 80% !important;
+    }
+
+    .delete-tech-btn {
+        width: 30px;
+        height: 20px;
+        padding: 0;
+    }
+    
+    .delete-tech-btn i {
+        font-size: 1rem;
+        line-height: normal;
+        position: absolute;
+        top: .4rem;
+        left: .65rem;
+    }
+
+    .row .col.s12,
+    .row .col.s6 {
+        margin-right: auto !important;
+    }
+}
