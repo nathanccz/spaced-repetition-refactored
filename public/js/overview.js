@@ -51,10 +51,11 @@ addTopicBtn.addEventListener('click', async(event) => {
 
 const logSessionBtns = document.querySelectorAll('.log-session-btn')
 Array.from(logSessionBtns).forEach(btn => btn.addEventListener('click', async(event) => {
-  const topicID = event.target.dataset.id
-  const techID = event.target.dataset.tech
+  
+  const topicID = event.target.dataset.id || event.target.parentNode.dataset.id
+  const techID = event.target.dataset.tech || event.target.parentNode.dataset.tech
   const selectElement = document.querySelector(`.log-session-field-${topicID}`)
-  const rating = selectElement.options[selectElement.selectedIndex].innerText
+  const rating = selectElement.options[selectElement.options.selectedIndex].innerText
   
   if (rating.includes('Choose')) {
     alert('Please choose an option from the list.')
