@@ -4,6 +4,7 @@ const activeTopicID = localStorage.getItem('active')
     if (activeElement) {
       activeElement.classList.add('active')
       activeElement.childNodes[1].childNodes[0].classList.toggle('rotate-180')
+      localStorage.removeItem('active')
     }
 } 
 
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 const addTopicBtn = document.getElementById('add-topic-btn')
 addTopicBtn.addEventListener('click', async(event) => {
   event.preventDefault()
-  const techID = event.target.dataset.id
+  const techID = event.target.dataset.id || event.target.parentNode.dataset.id
   const topicToAdd = document.querySelector('.materialize-textarea').value
   if (!topicToAdd) {
     alert('Please enter a topic.')

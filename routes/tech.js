@@ -128,10 +128,11 @@ router.post('/addSession', ensureAuth, async (req, res) => {
 // @route    DELETE /tech/deleteTopic
 
 router.delete('/deleteTopic', ensureAuth, async (req, res) => {
-    const topicName = req.body.topicID
+    const topicID = req.body.topicID
+    console.log('LOOK HERE', topicID)
     try {
         const result = await Topic.findOneAndDelete(
-            { user: req.user.id, topic: topicName }, 
+            { user: req.user.id, _id: topicID }, 
         )
         res.json('Topic deleted')
     } catch (err) {
