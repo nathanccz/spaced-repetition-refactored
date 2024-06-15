@@ -106,3 +106,35 @@ Array.from(confirmationBtns).forEach(btn => btn.addEventListener('click', async(
   }
 
 }))
+
+const editConfirmationBtns = document.querySelectorAll('.edit-btn')
+Array.from(editConfirmationBtns).forEach(btn => btn.addEventListener('click', async() => {
+  const topicToEdit = btn.dataset.topic
+  const newTopic = document.getElementById(`icon_prefix2-${topicToEdit}`).value
+  const originalTopic = document.getElementById(`icon_prefix2-${topicToEdit}`).closest('li').childNodes[1].innerText
+
+  console.log(originalTopic, newTopic)
+
+  if (newTopic === originalTopic) {
+    alert('You have not made any changes. Please try again.')
+    return
+  }
+
+  try {
+    const response = await fetch('/tech/editTopic', {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        topicID: topicToEdit,
+        newTopic: newTopic
+      })
+    })
+    const data = await response.json()
+    if (data === 'Topic changed') {
+      localStorage.setItem('active', topicToEdit)
+      location.reload()
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}))

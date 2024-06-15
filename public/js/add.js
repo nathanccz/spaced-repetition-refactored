@@ -16,11 +16,12 @@ addTechBtn.addEventListener('click', async() => {
     })
     const data = await request.json()
     if (data === 'Item added successfully') {
-      autocompleteInput.value = ''
       M.toast({ html: data, displayLength: 4000 })
     } else if (data === 'Tech already exists') {
         alert(`You've already added this tech. Please choose another.`)
     }
+
+    autocompleteInput.value = ''
 })
 
 // Fetch tech list from db and pass it into init method to fill autocomplete box.

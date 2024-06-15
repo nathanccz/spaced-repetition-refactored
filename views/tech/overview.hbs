@@ -57,9 +57,14 @@
 
         <div class="topic-btm">
           <button data-target="modal{{_id}}" class="btn waves-effect waves-light btn-small modal-trigger">View All  <i class="fa-regular fa-eye"></i></button>
-          <button type="submit" class="btn red delete-topic-btn modal-trigger" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
-            <i class="fas fa-trash" data-id="{{_id}}"></i>
-          </button>
+          <div>
+            <button type="submit" class="btn green green-edit-btn modal-trigger" data-id="{{_id}}" data-target="edit-modal-{{_id}}"> 
+              <i class="fas fa-edit" data-id="{{_id}}"></i>
+            </button>
+            <button type="submit" class="btn red delete-topic-btn modal-trigger" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
+              <i class="fas fa-trash" data-id="{{_id}}"></i>
+            </button>
+          </div>
         </div>
 
          <div id="modal{{_id}}" class="modal session-history-modal">
@@ -93,6 +98,21 @@
             <button class="waves-effect waves-green btn-flat confirmation-btn" data-topic="{{_id}}">Yes, Delete</a>
           </div>
         </div>
+
+        <div id="edit-modal-{{_id}}" class="modal">
+          <div class="modal-content">
+            <h5>Edit Topic</h5>
+           <div class="input-field col s6 topic-edit-field">
+            <i class="material-icons prefix">keyboard</i>
+            <textarea id="icon_prefix2-{{_id}}" class="materialize-textarea" >{{topic}}</textarea>
+            <label for="icon_prefix2-{{_id}}">Change topic</label>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Exit</a>
+            <button class="waves-effect waves-green btn-flat edit-btn" data-topic="{{_id}}">Save Changes</a>
+          </div>
+        </div>
       
          {{else}}
          <div id="confirmation-modal-{{_id}}" class="modal">
@@ -108,9 +128,14 @@
         
          <div class="topic-btm">
           <span>You have not recorded any sessions for this topic.</span>
-          <button type="submit" class="btn red delete-topic-btn modal-trigger" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
+          <div>
+            <button type="submit" class="btn green green-edit-btn modal-trigger" data-id="{{_id}}" data-target="edit-modal-{{_id}}"> 
+              <i class="fas fa-edit" data-id="{{_id}}"></i>
+            </button>
+            <button type="submit" class="btn red delete-topic-btn modal-trigger" data-id="{{_id}}" data-target="confirmation-modal-{{_id}}"> 
               <i class="fas fa-trash" data-id="{{_id}}"></i>
             </button>
+          </div>
           </div>
          {{/if}}
       </div>

@@ -129,12 +129,30 @@ router.post('/addSession', ensureAuth, async (req, res) => {
 
 router.delete('/deleteTopic', ensureAuth, async (req, res) => {
     const topicID = req.body.topicID
-    console.log('LOOK HERE', topicID)
+   
     try {
         const result = await Topic.findOneAndDelete(
             { user: req.user.id, _id: topicID }, 
         )
         res.json('Topic deleted')
+    } catch (err) {
+        console.error(err)
+    }
+})
+
+// @desc     Edit topic 
+// @route    PUT /tech/editTopic
+
+router.put('/editTopic', ensureAuth, async (req, res) => {
+    const topicID = req.body.topicID
+    const newTopic = req.body.newTopic
+    
+    try {
+        const result = await Topic.updateOne(
+            { user: req.user.id, _id: topicID },
+            { $set: { topic: newTopic} } 
+        )
+        res.json('Topic changed')
     } catch (err) {
         console.error(err)
     }

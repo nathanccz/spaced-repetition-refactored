@@ -688,6 +688,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
     margin-bottom: .5rem;
 }
 
+
 .collapsible .collapsible-header {
     transition: background 0.5s;
 }
