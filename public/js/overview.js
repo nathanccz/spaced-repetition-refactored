@@ -30,12 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
 const addTopicBtn = document.getElementById('add-topic-btn')
 addTopicBtn.addEventListener('click', async(event) => {
   event.preventDefault()
+  const topicInput = document.querySelector('.materialize-textarea')
   const techID = event.target.dataset.id || event.target.parentNode.dataset.id
-  const topicToAdd = document.querySelector('.materialize-textarea').value
+  const topicToAdd = topicInput.value
+  const headers = Array.from(document.querySelectorAll('.collapsible-header')).map(header => header.innerText)
+  
   if (!topicToAdd) {
     alert('Please enter a topic.')
     return
+  } else if (headers.includes(topicToAdd)) {
+    alert('You\'ve already added this topic. Please enter another one.')
+    return
   }
+
   const response = await fetch('/tech/addTopic', {
     method: "POST",
     headers: { 'Content-type': 'application/json' },
@@ -48,6 +55,7 @@ addTopicBtn.addEventListener('click', async(event) => {
   if (data === 'Topic added successfully') {
     location.reload()
   }
+  topicInput.value = ''
 })
 
 const logSessionBtns = document.querySelectorAll('.log-session-btn')
@@ -112,8 +120,6 @@ Array.from(editConfirmationBtns).forEach(btn => btn.addEventListener('click', as
   const topicToEdit = btn.dataset.topic
   const newTopic = document.getElementById(`icon_prefix2-${topicToEdit}`).value
   const originalTopic = document.getElementById(`icon_prefix2-${topicToEdit}`).closest('li').childNodes[1].innerText
-
-  console.log(originalTopic, newTopic)
 
   if (newTopic === originalTopic) {
     alert('You have not made any changes. Please try again.')
