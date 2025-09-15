@@ -10,6 +10,7 @@ const Topic = require('../models/Topic')
 //@route    GET /
 
 router.get('/', ensureGuest, (req, res) => {
+    console.log(req)
     res.render('home', {
         layout: 'home'
     })
